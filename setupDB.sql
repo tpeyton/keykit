@@ -1,11 +1,11 @@
 -- create database if it doesn't already exist
 CREATE DATABASE IF NOT EXISTS keykit;
 
+-- grant permissions on database to new keyman user
+GRANT ALL PRIVILEGES ON keykit.* to 'keyman'@'localhost' IDENTIFIED BY 'zooper$secret';
+
 -- use the newly created keykit database
 USE keykit;
-
--- grant permissions on database to new keyman user
-GRANT ALL PRIVILEGES ON . to keyman@'localhost' IDENTIFIED BY 'zooper$secret';
 
 -- create keystore table and related columns
 CREATE TABLE keystore

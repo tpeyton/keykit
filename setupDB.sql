@@ -1,7 +1,7 @@
 -- delete database if it already exists
 DROP DATABASE IF EXISTS keykit;
 
--- create database if it doesn't already exist
+-- create database 
 CREATE DATABASE keykit;
 
 -- grant permissions on database to new keyman user

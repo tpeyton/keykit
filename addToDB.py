@@ -21,9 +21,9 @@ db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database)
 # get the cursor
 cursor = db.cursor()
 
-def addHostToDB(hostname,ip,ssh_key,fingerprint):
+def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	# sql command
-	sql = "insert into keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, ssh_key, fingerprint)
+	sql = "insert into keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, fingerprint, ssh_key)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -59,4 +59,6 @@ ip = get_ip_address()
 ssh_key = get_sshPrivKey()
 fingerprint = calc_sshPubFP()
 
-addHostToDB(hostname,ip,ssh_key,fingerprint)
+print(fingerprint)
+
+addHostToDB(hostname,ip,fingerprint,ssh_key)

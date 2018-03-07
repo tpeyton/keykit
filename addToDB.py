@@ -18,13 +18,13 @@ database = "keykit"
 # connect to database
 db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database)
 
-# get the cursor
-cursor = db.cursor()
+# initialize the cursor and use dict mode so we can search by column name
+cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
 # This function takes in ssh server characteristics and adds them to our database
 def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	# sql command TODO: update this variable subsitution to best practice for python 3.1? - https://pyformat.info/
-	sql = "INSERT INTO keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, fingerprint, key)
+	sql = "INSERT INTO keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, fingerprint, ssh_key)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -41,6 +41,7 @@ def addHostToDB(hostname,ip,fingerprint,ssh_key):
 def searchForHost(hostname):
 	# sql command using best practice variable subsitution for python 3.1
 	sql = "SELECT * FROM keystore WHERE hostname ='{0}'".format(hostname)
+	#sql = "SELECT * FROM keystore WHERE hostname ='test'"
 
 	# execute sql command
 	cursor.execute(sql)
@@ -48,24 +49,32 @@ def searchForHost(hostname):
 	# store results in variables
 	results = cursor.fetchall()
 
+	# we only care about the first result so let's filter to that
+	result = results[0]
+
 	# TODO: handle empty results
 
-	# Output results
-	print("index: {0} name: {1}".format(results["id"], results["hostname"]))
-	return(results["id"])
+	# DEBUG: Output results
+	#print("index: {0} name: {1}".format(result["id"], result["hostname"]))
+
+	# Return ID
+	return(result["id"])
 
 # Retrieves details of host from the db, input is the index which the host is located at
 def getHostFromDB(index):
 	# sql command
-	sql = "SELECT body FROM keystore WHERE id = {0}".format(index)
+	sql = "SELECT * FROM keystore WHERE id = {0}".format(index)
 
 	# execute sql command
 	cursor.execute(sql)
 
-	result = cursor.fetchall()
+	results = cursor.fetchall()
+
+	# grab the first result
+	result = results[0]
 
 	# output results
-	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(results["id"], results["hostname"], results["ip"], results["ssh_fingerprint"], results["ssh_key"]))
+	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
 
 def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -91,9 +100,8 @@ ip = get_ip_address()
 ssh_key = get_sshPrivKey()
 fingerprint = calc_sshPubFP()
 
-addHostToDB(hostname,ip,ssh_key,fingerprint)
+#addHostToDB(hostname,ip,fingerprint,ssh_key)
 
 hostID = searchForHost(hostname)
 print("final id is {}".format(hostID))
-print("Details for " + hostID)
 getHostFromDB(hostID)

@@ -22,9 +22,9 @@ db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database)
 cursor = db.cursor()
 
 # This function takes in ssh server characteristics and adds them to our database
-def addHostToDB(hostname,ip,ssh_key,fingerprint):
+def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	# sql command TODO: update this variable subsitution to best practice for python 3.1? - https://pyformat.info/
-	sql = "INSERT INTO keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, ssh_key, fingerprint)
+	sql = "INSERT INTO keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, fingerprint, key)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -40,7 +40,7 @@ def addHostToDB(hostname,ip,ssh_key,fingerprint):
 # search database for queried host and return index if it exists, if not then report error and close
 def searchForHost(hostname):
 	# sql command using best practice variable subsitution for python 3.1
-	sql = "SELECT * FROM keystore WHERE hostname ="{0}"".format(hostname)
+	sql = "SELECT * FROM keystore WHERE hostname ='{0}'".format(hostname)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -54,7 +54,7 @@ def searchForHost(hostname):
 	print("index: {0} name: {1}".format(results["id"], results["hostname"]))
 	return(results["id"])
 
-# TODO: Retrieves details of host from the db, input is the index which the host is located at
+# Retrieves details of host from the db, input is the index which the host is located at
 def getHostFromDB(index):
 	# sql command
 	sql = "SELECT body FROM keystore WHERE id = {0}".format(index)
@@ -85,14 +85,15 @@ def get_sshPrivKey():
     privKey = privKey.rstrip()
     return(privKey)
 
-hostname = get_hostname()
+# hostname = get_hostname()
+hostname = "test"
 ip = get_ip_address()
 ssh_key = get_sshPrivKey()
 fingerprint = calc_sshPubFP()
 
 addHostToDB(hostname,ip,ssh_key,fingerprint)
 
-hostID = SearchForHost(hostname)
+hostID = searchForHost(hostname)
 print("final id is {}".format(hostID))
 print("Details for " + hostID)
 getHostFromDB(hostID)

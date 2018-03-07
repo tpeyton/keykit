@@ -41,7 +41,6 @@ def addHostToDB(hostname,ip,fingerprint,ssh_key):
 def searchForHost(hostname):
 	# sql command using best practice variable subsitution for python 3.1
 	sql = "SELECT * FROM keystore WHERE hostname ='{0}'".format(hostname)
-	#sql = "SELECT * FROM keystore WHERE hostname ='test'"
 
 	# execute sql command
 	cursor.execute(sql)
@@ -95,7 +94,7 @@ def get_sshPrivKey():
     return(privKey)
 
 # hostname = get_hostname()
-hostname = "test"
+hostname = get_hostname()
 ip = get_ip_address()
 ssh_key = get_sshPrivKey()
 fingerprint = calc_sshPubFP()

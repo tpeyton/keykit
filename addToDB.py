@@ -24,7 +24,7 @@ cursor = db.cursor()
 # This function takes in ssh server characteristics and adds them to our database
 def addHostToDB(hostname,ip,ssh_key,fingerprint):
 	# sql command TODO: update this variable subsitution to best practice for python 3.1? - https://pyformat.info/
-	sql = "insert into keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, ssh_key, fingerprint)
+	sql = "INSERT INTO keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, ssh_key, fingerprint)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -40,7 +40,7 @@ def addHostToDB(hostname,ip,ssh_key,fingerprint):
 # search database for queried host and return index if it exists, if not then report error and close
 def searchForHost(hostname):
 	# sql command using best practice variable subsitution for python 3.1
-	sql = "select * from keystore where hostname ='{0}'".format(hostname)
+	sql = "SELECT * FROM keystore WHERE hostname ="{0}"".format(hostname)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -48,14 +48,24 @@ def searchForHost(hostname):
 	# store results in variables
 	results = cursor.fetchall()
 
+	# TODO: handle empty results
+
 	# Output results
 	print("index: {0} name: {1}".format(results["id"], results["hostname"]))
 	return(results["id"])
 
 # TODO: Retrieves details of host from the db, input is the index which the host is located at
 def getHostFromDB(index):
+	# sql command
+	sql = "SELECT body FROM keystore WHERE id = {0}".format(index)
 
+	# execute sql command
+	cursor.execute(sql)
 
+	result = cursor.fetchall()
+
+	# output results
+	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(results["id"], results["hostname"], results["ip"], results["ssh_fingerprint"], results["ssh_key"]))
 
 def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -84,3 +94,5 @@ addHostToDB(hostname,ip,ssh_key,fingerprint)
 
 hostID = SearchForHost(hostname)
 print("final id is {}".format(hostID))
+print("Details for " + hostID)
+getHostFromDB(hostID)

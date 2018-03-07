@@ -77,27 +77,6 @@ def getHostFromDB(index):
 	# output results (will later return variables)
 	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
 
-# Test functions for sql query testing
-######################################
-# def get_ip_address():
-#     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#     s.connect(("8.8.8.8", 80))
-#     return s.getsockname()[0]
-#
-# def get_hostname():
-#     return(socket.gethostname())
-#
-# def calc_sshPubFP():
-#     fPrint = subprocess.check_output('ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub', shell=True)
-#     fPrint = fPrint.rstrip()
-#     return(fPrint)
-#
-# def get_sshPrivKey():
-#     privKey = subprocess.check_output('cat ~/.ssh/id_rsa', shell=True)
-#     privKey = privKey.rstrip()
-#     return(privKey)
-######################################
-
 # testing: get details from host
 hostname = getIP.get_hostname()
 ip = getIP.get_ip_address()

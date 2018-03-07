@@ -21,10 +21,16 @@ db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database)
 # get the cursor
 cursor = db.cursor()
 
+<<<<<<< HEAD
 # This function takes in ssh server characteristics and adds them to our database
 def addHostToDB(hostname,ip,ssh_key,fingerprint):
 	# sql command TODO: update this variable subsitution to best practice for python 3.1? - https://pyformat.info/
 	sql = "insert into keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, ssh_key, fingerprint)
+=======
+def addHostToDB(hostname,ip,fingerprint,ssh_key):
+	# sql command
+	sql = "insert into keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('%s', '%s', '%s', '%s')" % (hostname, ip, fingerprint, ssh_key)
+>>>>>>> 30aee48ddd98b2a0d7827abc2b0010d6b1c1eb0c
 
 	# execute sql command
 	cursor.execute(sql)
@@ -80,7 +86,13 @@ ip = get_ip_address()
 ssh_key = get_sshPrivKey()
 fingerprint = calc_sshPubFP()
 
+<<<<<<< HEAD
 addHostToDB(hostname,ip,ssh_key,fingerprint)
 
 hostID = SearchForHost(hostname)
 print("final id is {}".format(hostID))
+=======
+print(fingerprint)
+
+addHostToDB(hostname,ip,fingerprint,ssh_key)
+>>>>>>> 30aee48ddd98b2a0d7827abc2b0010d6b1c1eb0c

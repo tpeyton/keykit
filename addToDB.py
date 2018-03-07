@@ -39,9 +39,6 @@ def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	# save changes to db
 	db.commit()
 
-	# close connection to db
-	db.close()
-
 # search database for queried host and return index if it exists, if not then report error and close
 def searchForHost(hostname):
 	# sql command
@@ -113,3 +110,6 @@ addHostToDB(hostname,ip,fingerprint,ssh_key)
 # search for hostname in DB and print details about it
 hostID = searchForHost(hostname)
 getHostFromDB(hostID)
+
+# close connection to db
+db.close()

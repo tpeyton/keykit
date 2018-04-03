@@ -1,11 +1,11 @@
 -- delete database if it already exists
 DROP DATABASE IF EXISTS keykit;
 
--- create database 
+-- create database
 CREATE DATABASE keykit;
 
 -- grant permissions on database to new keyman user
-GRANT ALL PRIVILEGES ON keykit.* to 'keyman'@'localhost' IDENTIFIED BY 'zooper$secret';
+GRANT ALL PRIVILEGES ON keykit.* TO 'keyman'@'localhost' IDENTIFIED BY 'zooper$secret' REQUIRE SSL;
 
 -- use the newly created keykit database
 USE keykit;

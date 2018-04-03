@@ -52,16 +52,19 @@ def searchForHost(hostname):
 	# store results in variables
 	results = cursor.fetchall()
 
-	# TODO: handle empty results
+	# Check to see if search found any results
+	if(cursor.rowcount > 0):
+		# we only care about the first result so grab that
+		result = results[0]
 
-	# we only care about the first result so grab that
-	result = results[0]
+		# DEBUG: Output results
+		#print("index: {0} name: {1}".format(result["id"], result["hostname"]))
 
-	# DEBUG: Output results
-	#print("index: {0} name: {1}".format(result["id"], result["hostname"]))
-
-	# Return ID
-	return(result["id"])
+		# Return ID
+		return(result["id"])
+	# Handle no results found
+	else:
+		return(0)
 
 # Retrieves details of host from the db, input is the index which the host is located at
 def getHostFromDB(index):
@@ -91,7 +94,12 @@ addHostToDB(hostname,ip,fingerprint,ssh_key)
 
 # search for hostname in DB and print details about it
 hostID = searchForHost(hostname)
-getHostFromDB(hostID)
+
+# Ensure a result was foun before attempting to search the db
+if(hostID != 0):
+	getHostFromDB(hostID)
+else:
+	print("No results found.")
 
 # close connection to db
 db.close()

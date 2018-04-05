@@ -4,8 +4,8 @@ DROP DATABASE IF EXISTS keykit;
 -- create database
 CREATE DATABASE keykit;
 
--- grant permissions on database to new keyman user
-GRANT ALL PRIVILEGES ON keykit.* TO 'keyman'@'localhost' IDENTIFIED BY 'zooper$secret' REQUIRE SSL;
+-- grant permissions on database to new keyman user. Note: change '%' wildcard remote ip address and the password before deploying in a real enviroment.
+GRANT ALL PRIVILEGES ON keykit.* TO 'keyman'@'%' IDENTIFIED BY 'zooper$secret' REQUIRE SSL;
 
 -- use the newly created keykit database
 USE keykit;

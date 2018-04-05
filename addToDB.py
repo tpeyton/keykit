@@ -21,7 +21,7 @@ database = "keykit"
 #fingerprint = "oinrweoqinweroiwer"
 
 # connect to database
-db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database)
+db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database,ssl="")
 
 # initialize the cursor and use dict mode so we can search by column name
 cursor = db.cursor(MySQLdb.cursors.DictCursor)

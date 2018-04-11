@@ -9,17 +9,13 @@ import subprocess
 # file imports
 import getIP
 
+# TODO: prompt for these variables in main script instead of hardcoding
 # initialize sql variables
 sqlUser = "keyman"
 sqlPasswd = "zooper$secret"
 database = "keykit"
 
-# test data
-#hostname = "test02"
-#ip = "10.0.0.101"
-#ssh_key = "234t3gtiwqervceqw234t3grfe234t3grf23r4tgrf32r4gf3"
-#fingerprint = "oinrweoqinweroiwer"
-
+# TODO: do these things need to go inside functions?
 # connect to database
 db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database,ssl="")
 
@@ -42,7 +38,6 @@ def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	db.commit()
 
 # search database for queried host and return index if it exists, if not then report error and close
-# TODO: add capability to search by IP and key fingerprint
 def searchForHost(searchType,query):
 	# sql command
 	sql = "SELECT * FROM keystore WHERE {0} ='{1}'".format(searchType,query)
@@ -84,6 +79,8 @@ def getHostFromDB(index):
 	# output results (will later return variables)
 	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
 
+# TODO: remove/ reorganize the following code to be a part of the main function file
+###############################################
 # testing: get details from localhost
 hostname = getIP.get_hostname()
 ip = getIP.get_ip_address()
@@ -102,5 +99,6 @@ if(hostID != 0):
 else:
 	print("No results found.")
 
+# TODO: unsure if this line needs to occur at the end of each function
 # close connection to db
 db.close()

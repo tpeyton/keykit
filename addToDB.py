@@ -42,9 +42,10 @@ def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	db.commit()
 
 # search database for queried host and return index if it exists, if not then report error and close
-def searchForHost(hostname):
+# TODO: add capability to search by IP and key fingerprint
+def searchForHost(searchType,query):
 	# sql command
-	sql = "SELECT * FROM keystore WHERE hostname ='{0}'".format(hostname)
+	sql = "SELECT * FROM keystore WHERE {0} ='{1}'".format(searchType,query)
 
 	# execute sql command
 	cursor.execute(sql)
@@ -93,9 +94,9 @@ fingerprint = getIP.calc_sshPubFP()
 addHostToDB(hostname,ip,fingerprint,ssh_key)
 
 # search for hostname in DB and print details about it
-hostID = searchForHost(hostname)
+hostID = searchForHost("hostname",hostname)
 
-# Ensure a result was foun before attempting to search the db
+# Ensure a result was found before attempting to search the db
 if(hostID != 0):
 	getHostFromDB(hostID)
 else:

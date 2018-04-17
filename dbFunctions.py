@@ -6,7 +6,6 @@ import socket
 import os
 import subprocess
 
-# TODO: Consolidate the following sql related functions to avoid repeating all the duplicate code
 # This function takes in ssh server characteristics and adds them to our database
 def addHostToDB(db,cursor,hostname,ip,fingerprint,ssh_key):
 	# sql command

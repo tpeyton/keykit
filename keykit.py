@@ -9,8 +9,8 @@ import MySQLdb
 
 # initialize sql variables
 dbHost = "keykit.tynet.lab"
-sqlUser = input("enter username: ")
-sqlPasswd = input("enter password: ")
+sqlUser = raw_input("enter username: ")
+sqlPasswd = raw_input("enter password: ")
 database = "keykit"
 
 # connect to database using ssl

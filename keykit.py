@@ -24,8 +24,6 @@ except MySQLdb.Error as e:
 # initialize the cursor and use dict mode so we can search by column name
 cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
-# TODO: remove/ reorganize the following code to be a part of the main function file
-###############################################
 # testing: get details from localhost
 hostname = getIP.get_hostname()
 ip = getIP.get_ip_address()
@@ -44,7 +42,5 @@ if(hostID != 0):
 else:
 	print("No results found.")
 
-
-# TODO: unsure if this line needs to occur at the end of each function
 # close connection to db after everything has run
 db.close()

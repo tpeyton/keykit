@@ -62,7 +62,3 @@ def getHostFromDB(index):
 
 	# output results (will later return variables)
 	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
-
-# TODO: unsure if this line needs to occur at the end of each function
-# close connection to db
-db.close()

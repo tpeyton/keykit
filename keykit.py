@@ -2,7 +2,7 @@
 # main file for keykit
 
 # import files
-import getIP, dbFunctions
+import getIP, dbFunctions, getpass
 
 # import Dependencies
 import MySQLdb
@@ -10,7 +10,7 @@ import MySQLdb
 # initialize sql variables
 dbHost = "keykit.tynet.lab"
 sqlUser = raw_input("enter username: ")
-sqlPasswd = raw_input("enter password: ")
+sqlPasswd = getpass.getpass("enter password: ")
 database = "keykit"
 
 # connect to database using ssl

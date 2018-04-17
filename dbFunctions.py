@@ -6,22 +6,6 @@ import socket
 import os
 import subprocess
 
-# file imports
-import getIP
-
-# TODO: prompt for these variables in main script instead of hardcoding
-# initialize sql variables
-sqlUser = "keyman"
-sqlPasswd = "zooper$secret"
-database = "keykit"
-
-# TODO: do these things need to go inside functions?
-# connect to database
-db = MySQLdb.connect("localhost",sqlUser,sqlPasswd,database,ssl="")
-
-# initialize the cursor and use dict mode so we can search by column name
-cursor = db.cursor(MySQLdb.cursors.DictCursor)
-
 # TODO: Consolidate the following sql related functions to avoid repeating all the duplicate code
 # This function takes in ssh server characteristics and adds them to our database
 def addHostToDB(hostname,ip,fingerprint,ssh_key):
@@ -78,26 +62,6 @@ def getHostFromDB(index):
 
 	# output results (will later return variables)
 	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
-
-# TODO: remove/ reorganize the following code to be a part of the main function file
-###############################################
-# testing: get details from localhost
-hostname = getIP.get_hostname()
-ip = getIP.get_ip_address()
-ssh_key = getIP.get_sshPrivKey()
-fingerprint = getIP.calc_sshPubFP()
-
-# add above test details to last row in DB
-addHostToDB(hostname,ip,fingerprint,ssh_key)
-
-# search for hostname in DB and print details about it
-hostID = searchForHost("hostname",hostname)
-
-# Ensure a result was found before attempting to search the db
-if(hostID != 0):
-	getHostFromDB(hostID)
-else:
-	print("No results found.")
 
 # TODO: unsure if this line needs to occur at the end of each function
 # close connection to db

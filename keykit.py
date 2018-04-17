@@ -14,7 +14,12 @@ sqlPasswd = getpass.getpass("enter password: ")
 database = "keykit"
 
 # connect to database using ssl
-db = MySQLdb.connect(dbHost,sqlUser,sqlPasswd,database,ssl="")
+try:
+    db = MySQLdb.connect(dbHost,sqlUser,sqlPasswd,database,ssl="")
+
+# handle and print errors
+except MySQLdb.Error as e:
+    exit(e)
 
 # initialize the cursor and use dict mode so we can search by column name
 cursor = db.cursor(MySQLdb.cursors.DictCursor)

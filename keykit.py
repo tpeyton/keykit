@@ -1,8 +1,11 @@
 #!/usr/bin/python
 # main file for keykit
 
-# import Dependencies
+# import files
 import getIP, dbFunctions
+
+# import Dependencies
+import MySQLdb
 
 # initialize sql variables
 dbHost = "keykit.tynet.lab"

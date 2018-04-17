@@ -8,7 +8,7 @@ import subprocess
 
 # TODO: Consolidate the following sql related functions to avoid repeating all the duplicate code
 # This function takes in ssh server characteristics and adds them to our database
-def addHostToDB(hostname,ip,fingerprint,ssh_key):
+def addHostToDB(db,cursor,hostname,ip,fingerprint,ssh_key):
 	# sql command
 	sql = "INSERT INTO keystore(hostname, ip, ssh_fingerprint, ssh_key) VALUES('{0}', '{1}', '{2}', '{3}')".format(hostname,ip,fingerprint,ssh_key)
 
@@ -22,7 +22,7 @@ def addHostToDB(hostname,ip,fingerprint,ssh_key):
 	db.commit()
 
 # search database for queried host and return index if it exists, if not then report error and close
-def searchForHost(searchType,query):
+def searchForHost(db,cursor,searchType,query):
 	# sql command
 	sql = "SELECT * FROM keystore WHERE {0} ='{1}'".format(searchType,query)
 
@@ -47,7 +47,7 @@ def searchForHost(searchType,query):
 		return(0)
 
 # Retrieves details of host from the db, input is the index which the host is located at
-def getHostFromDB(index):
+def getHostFromDB(db,cursor,index):
 	# sql command
 	sql = "SELECT * FROM keystore WHERE id = {0}".format(index)
 

@@ -28,14 +28,14 @@ ssh_key = getIP.get_sshPrivKey()
 fingerprint = getIP.calc_sshPubFP()
 
 # add above test details to last row in DB
-addHostToDB(hostname,ip,fingerprint,ssh_key)
+dbFunctions.addHostToDB(db,cursor,hostname,ip,fingerprint,ssh_key)
 
 # search for hostname in DB and print details about it
-hostID = searchForHost("hostname",hostname)
+hostID = dbFunctions.searchForHost(db,cursor,"hostname",hostname)
 
 # Ensure a result was found before attempting to search the db
 if(hostID != 0):
-	getHostFromDB(hostID)
+	dbFunctions.getHostFromDB(db,cursor,hostID)
 else:
 	print("No results found.")
 

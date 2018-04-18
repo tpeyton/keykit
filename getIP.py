@@ -21,16 +21,16 @@ def get_hostname(): #returns the current hostname as a string
     return(socket.gethostname())
 
 def get_sshPubKey(): #returns the SSH Public key as a string
-    key = subprocess.check_output('cat ~/.ssh/id_rsa.pub', shell=True)
+    key = subprocess.check_output('cat /etc/ssh/ssh_host_rsa_key.pub', shell=True)
     key = key.rstrip()
     return(key)
 
 def calc_sshPubFP(): #returns the SSH fingerprint as a string
-    fPrint = subprocess.check_output('ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub', shell=True)
+    fPrint = subprocess.check_output('ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub', shell=True)
     fPrint = fPrint.rstrip()
     return(fPrint)
 
 def get_sshPrivKey(): #returns the SSH Private key as a string
-    privKey = subprocess.check_output('cat ~/.ssh/id_rsa', shell=True)
+    privKey = subprocess.check_output('cat /etc/ssh/ssh_host_rsa_key', shell=True)
     privKey = privKey.rstrip()
     return(privKey)

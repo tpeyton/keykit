@@ -2,10 +2,12 @@
 # main file for keykit
 
 # import files
-import getIP, dbFunctions, getpass
+import getIP, dbFunctions, setSSH
 
 # import Dependencies
-import MySQLdb
+import MySQLdb, getpass
+
+# TODO: argparse goes here
 
 # initialize sql variables
 dbHost = "keykit.tynet.lab"

@@ -59,5 +59,8 @@ def getHostFromDB(db,cursor,index):
 	# grab the first result
 	result = results[0]
 
-	# output results (will later return variables)
-	print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
+	# DEBUG: output results
+	#print("index: {0} \nname: {1} \nip: {2} \nssh_fingerprint: {3} \nssh_key: {4}".format(result["id"], result["hostname"], result["ip"], result["ssh_fingerprint"], result["ssh_key"]))
+
+	# return result for later use
+	return result

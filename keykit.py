@@ -40,9 +40,12 @@ hostID = dbFunctions.searchForHost(db,cursor,"hostname",hostname)
 
 # Ensure a result was found before attempting to search the db
 if(hostID != 0):
-	dbFunctions.getHostFromDB(db,cursor,hostID)
+	result = dbFunctions.getHostFromDB(db,cursor,hostID)
 else:
 	print("No results found.")
+
+# test saving private keykit, broken currently
+setSSH.set_sshPrivKey("{}".format(result["ssh_key"]))
 
 # close connection to db after everything has run
 db.close()

@@ -55,6 +55,7 @@ if args.find:
         # Ensure a result was found before attempting to search the db
         if(hostID != 0):
         	result = dbFunctions.getHostFromDB(db,cursor,hostID)
+            print("{}".format(result["ssh_key"]))
         else:
         	print("No results found.")
 

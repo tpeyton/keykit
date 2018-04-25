@@ -14,12 +14,15 @@ def set_sshPrivKey(sshKey):
 	if(adminStatus != True):
 		exit("You do not have the proper permissions to perform this command. Please re-run this command as sudo.")
 
-	# do with python as well?
-	subprocess.call("mv /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key.bak", shell=True)
+	# store backup copy
+	os.rename("/etc/ssh/ssh_host_rsa_key","/etc/ssh/ssh_host_rsa_key.bak")
 	print("Backup stored successfully as /etc/ssh/ssh_host_rsa_key.bak")
 
-	# errors due to newlines, maybe we use python function to write to file instead?
-	subprocess.call("echo {} > /etc/ssh/ssh_host_rsa_key".format(sshKey), shell=True)
+	# open key file for writing
+	keyFile = open("/etc/ssh/ssh_host_rsa_key", "a")
+
+	# write key to file
+	keyFile.write("{}\n".format(sshKey))
 
 	# ensure key was written to file properly
 	if(getIP.get_sshPrivKey() == sshKey):

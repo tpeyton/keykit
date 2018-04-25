@@ -36,4 +36,4 @@ if args.calcPubFP:
 if args.getPrivKey:
         print(getIP.get_sshPrivKey())
 if args.setPrivKey:
-        print("You called setPrivKey)
+        print("You called setPrivKey")

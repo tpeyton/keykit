@@ -23,9 +23,3 @@ def set_sshPrivKey(sshKey):
 
 	# write key to file
 	keyFile.write("{}\n".format(sshKey))
-
-	# ensure key was written to file properly
-	if(getIP.get_sshPrivKey() == sshKey):
-			print("Success! The SSH private key was changed.")
-	else:
-			print("Error: The SSH private key was not replaced successfully.")

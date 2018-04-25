@@ -14,7 +14,7 @@ parser.add_argument('-p','--publish',help='Uploads local SSH config to database'
 parser.add_argument('-f','--find',help='search database by hostname',action="store_true")
 parser.add_argument('-fI','--findIP',help='search database by ip',action="store_true")
 parser.add_argument('-fF','--findFingerprint',help='search database by fingerprint',action="store_true")
-parser.add_argument('-sK','--setPrivKey',help='Replace the SSH private key,action="store_true")
+parser.add_argument('-sK','--setPrivKey',help='Replace the SSH private key',action="store_true")
 args = parser.parse_args()
 
 # initialize sql variables

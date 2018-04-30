@@ -24,6 +24,7 @@ else:
     exit("Please specify an operation, help can be found by running keykit.py with the -h flag.")
 
 # initialize sql variables
+print("----------------")
 dbHost = "keykit.tynet.lab"
 sqlUser = raw_input("Enter username: ")
 sqlPasswd = getpass.getpass("Enter password: ")

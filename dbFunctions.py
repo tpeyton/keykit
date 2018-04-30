@@ -15,7 +15,7 @@ def addHostToDB(db,cursor,hostname,ip,fingerprint,ssh_key):
 	cursor.execute(sql)
 
 	# DEBUG: make sure data was successfully added to db
-	print(cursor.fetchall())
+	#print(cursor.fetchall())
 
 	# save changes to db
 	db.commit()

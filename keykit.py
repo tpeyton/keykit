@@ -28,6 +28,7 @@ dbHost = "keykit.tynet.lab"
 sqlUser = raw_input("Enter username: ")
 sqlPasswd = getpass.getpass("Enter password: ")
 database = "keykit"
+print("----------------")
 
 # connect to database using ssl
 try:

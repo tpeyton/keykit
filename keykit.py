@@ -18,7 +18,9 @@ parser.add_argument('-sK','--setPrivKey',help='Replace the SSH private key',acti
 args = parser.parse_args()
 
 # exit if no arguments are set
-if(!args.publish or !args.find or !args.findIP or !args.findFingerprint or args.setPrivKey):
+if(args.publish or args.find or args.findIP or args.findFingerprint or args.setPrivKey):
+    print("Please enter credentials to connect to the database.")
+else:
     exit("Please specify an operation, help can be found by running keykit.py with the -h flag.")
 
 # initialize sql variables

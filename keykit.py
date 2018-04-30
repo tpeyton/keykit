@@ -61,7 +61,7 @@ elif args.find:
         # Ensure a result was found before attempting to search the db
         if(hostID != 0):
             # get the result
-            print("{} is located at index: {}.".format(query,hostID)
+            print("{} is located at index: {}.".format(query,hostID))
         else:
             print("no results found.")
 

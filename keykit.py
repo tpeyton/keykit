@@ -47,7 +47,7 @@ if args.publish:
     dbFunctions.addHostToDB(db,cursor,hostname,ip,fingerprint,ssh_key)
 
 # search by hostname
-if args.find:
+elif args.find:
         # search for hostname in DB and print details about it
         query = raw_input("Enter a hostname to search for: ")
         hostID = dbFunctions.searchForHost(db,cursor,"hostname",query)
@@ -62,19 +62,19 @@ if args.find:
             print("no results found.")
 
 # search by ip
-if args.findIP:
+elif args.findIP:
         # search for hostname in DB and print details about it
         query = raw_input("Enter an IP address to search for: ")
         hostID = dbFunctions.searchForHost(db,cursor,"ip",query)
 
 # search by fingerprint
-if args.findFingerprint:
+elif args.findFingerprint:
         # search for hostname in DB and print details about it
         query = raw_input("Enter a fingerprint to search for: ")
         hostID = dbFunctions.searchForHost(db,cursor,"fingerprint",query)
 
 # set ssh keys on host
-if args.setPrivKey:
+elif args.setPrivKey:
     # test saving private keykit, broken currently
     hostID = raw_input("Please enter the index where the key is located: ")
 
@@ -86,6 +86,10 @@ if args.setPrivKey:
 
     # set the server keys
     setSSH.set_sshPrivKey("{}".format(result["ssh_key"]))
+
+# prompt user to select an option
+else:
+    print("Please specify an option, help can be found by running keykit.py with the -h flag.")
 
 # close connection to db after everything has run
 db.close()

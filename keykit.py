@@ -17,6 +17,10 @@ parser.add_argument('-fF','--findFingerprint',help='search database by fingerpri
 parser.add_argument('-sK','--setPrivKey',help='Replace the SSH private key',action="store_true")
 args = parser.parse_args()
 
+# exit if no arguments are set
+if(!args.publish or !args.find or !args.findIP or !args.findFingerprint or args.setPrivKey):
+    exit("Please specify an operation, help can be found by running keykit.py with the -h flag.")
+
 # initialize sql variables
 dbHost = "keykit.tynet.lab"
 sqlUser = raw_input("enter username: ")
@@ -86,10 +90,6 @@ elif args.setPrivKey:
 
     # set the server keys
     setSSH.set_sshPrivKey("{}".format(result["ssh_key"]))
-
-# prompt user to select an option
-else:
-    print("Please specify an option, help can be found by running keykit.py with the -h flag.")
 
 # close connection to db after everything has run
 db.close()

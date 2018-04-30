@@ -25,8 +25,8 @@ else:
 
 # initialize sql variables
 dbHost = "keykit.tynet.lab"
-sqlUser = raw_input("enter username: ")
-sqlPasswd = getpass.getpass("enter password: ")
+sqlUser = raw_input("Enter username: ")
+sqlPasswd = getpass.getpass("Enter password: ")
 database = "keykit"
 
 # connect to database using ssl
@@ -52,6 +52,9 @@ if args.publish:
     # add above details to last row in DB
     dbFunctions.addHostToDB(db,cursor,hostname,ip,fingerprint,ssh_key)
 
+    # confirm Upload
+    print("{} was successfully uploaded to the database.\n".format(hostname))
+
 # search by hostname
 elif args.find:
         # search for hostname in DB and print details about it
@@ -61,9 +64,9 @@ elif args.find:
         # Ensure a result was found before attempting to search the db
         if(hostID != 0):
             # get the result
-            print("{} is located at index: {}.".format(query,hostID))
+            print("{} is located at index: {}.\n".format(query,hostID))
         else:
-            print("no results found.")
+            print("no results found.\n")
 
 # search by ip
 elif args.findIP:
@@ -71,11 +74,25 @@ elif args.findIP:
         query = raw_input("Enter an IP address to search for: ")
         hostID = dbFunctions.searchForHost(db,cursor,"ip",query)
 
+        # Ensure a result was found before attempting to search the db
+        if(hostID != 0):
+            # get the result
+            print("{} is located at index: {}.\n".format(query,hostID))
+        else:
+            print("no results found.\n")
+
 # search by fingerprint
 elif args.findFingerprint:
         # search for hostname in DB and print details about it
         query = raw_input("Enter a fingerprint to search for: ")
         hostID = dbFunctions.searchForHost(db,cursor,"fingerprint",query)
+
+        # Ensure a result was found before attempting to search the db
+        if(hostID != 0):
+            # get the result
+            print("{} is located at index: {}.\n".format(query,hostID))
+        else:
+            print("no results found.\n")
 
 # set ssh keys on host
 elif args.setPrivKey:
@@ -84,12 +101,15 @@ elif args.setPrivKey:
 
     # Ensure a result was found before attempting to search the db
     if(hostID != 0):
+        # get info from db
         result = dbFunctions.getHostFromDB(db,cursor,hostID)
-    else:
-        print("No results found.")
 
-    # set the server keys
-    setSSH.set_sshPrivKey("{}".format(result["ssh_key"]))
+        # set the server keys
+        setSSH.set_sshPrivKey("{}".format(result["ssh_key"]))
+
+        print("SSH key has been restored, please restart sshd for changes to to effect.")
+    else:
+        print("Error: invalid index specified.\n")
 
 # close connection to db after everything has run
 db.close()

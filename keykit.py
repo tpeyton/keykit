@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 # exit if no arguments are set
 if(args.publish or args.find or args.findIP or args.findFingerprint or args.setPrivKey):
-    print("Please enter credentials to connect to the database.")
+    print("Please enter credentials to connect to the database:")
 else:
     exit("Please specify an operation, help can be found by running keykit.py with the -h flag.")
 
@@ -29,7 +29,7 @@ dbHost = "keykit.tynet.lab"
 sqlUser = raw_input("Enter username: ")
 sqlPasswd = getpass.getpass("Enter password: ")
 database = "keykit"
-print("----------------")
+print("----------------\n")
 
 # connect to database using ssl
 try:
@@ -66,7 +66,7 @@ elif args.find:
         # Ensure a result was found before attempting to search the db
         if(hostID != 0):
             # get the result
-            print("{} is located at index: {}.\n".format(query,hostID))
+            print("\n{} is located at index: {}.\n".format(query,hostID))
         else:
             print("no results found.\n")
 
@@ -79,7 +79,7 @@ elif args.findIP:
         # Ensure a result was found before attempting to search the db
         if(hostID != 0):
             # get the result
-            print("{} is located at index: {}.\n".format(query,hostID))
+            print("\n{} is located at index: {}.\n".format(query,hostID))
         else:
             print("no results found.\n")
 
@@ -92,7 +92,7 @@ elif args.findFingerprint:
         # Ensure a result was found before attempting to search the db
         if(hostID != 0):
             # get the result
-            print("{} is located at index: {}.\n".format(query,hostID))
+            print("\n{} is located at index: {}.\n".format(query,hostID))
         else:
             print("no results found.\n")
 
@@ -109,7 +109,7 @@ elif args.setPrivKey:
         # set the server keys
         setSSH.set_sshPrivKey("{}".format(result["ssh_key"]))
 
-        print("SSH key has been restored, please restart sshd for changes to to effect.")
+        print("\nSSH key has been restored, please restart sshd for changes to to effect.")
     else:
         print("Error: invalid index specified.\n")
 
